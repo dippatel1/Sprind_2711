@@ -18,4 +18,6 @@ COPY /target/demo12-0.0.1-SNAPSHOT.jar /home/app.jar
 EXPOSE 8080
 #RUN useradd -u 8877 none
 #USER none
-CMD java -jar /home/app.jar
+#CMD java -jar /home/app.jar
+COPY application.properties /home/application.properties
+CMD java -jar /home/app.jar --spring.config.location=file:/home/application.properties
