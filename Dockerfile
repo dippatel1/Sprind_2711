@@ -15,16 +15,17 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 COPY /target/demo12-0.0.1-SNAPSHOT.jar /home/app.jar
 #COPY --from=build /home/app/src/main/resources/application.properties /home/application.properties
-#EXPOSE 8080
+EXPOSE 8080
 #RUN useradd -u 8877 none
 #USER none
 #CMD java -jar /home/app.jar
-COPY /src/main/resources/application.properties /home/application.properties
-RUN SERVER_PORT=$(sed -n 's/^server\.port=\(.*\)$/\1/p' /home/application.properties) && \
-    SERVER_PORT=${SERVER_PORT:-8080} && \
-    echo "Server port: $SERVER_PORT" && \
-    echo "Exposing port $SERVER_PORT"
+#--------------------------------------------------------------------------------------------------------
+# COPY /src/main/resources/application.properties /home/application.properties
+# RUN SERVER_PORT=$(sed -n 's/^server\.port=\(.*\)$/\1/p' /home/application.properties) && \
+#     SERVER_PORT=${SERVER_PORT:-8080} && \
+#     echo "Server port: $SERVER_PORT" && \
+#     echo "Exposing port $SERVER_PORT"
     
-EXPOSE $SERVER_PORT
-
+# EXPOSE $SERVER_PORT
+#----------------------------------------------------------------------------------------------------------
 CMD java -jar /home/app.jar --spring.config.location=file:/home/application.properties
