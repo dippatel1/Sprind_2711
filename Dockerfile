@@ -23,7 +23,8 @@ COPY /src/main/resources/application.properties /home/application.properties
 RUN SERVER_PORT=$(sed -n 's/^server\.port=\(.*\)$/\1/p' /home/application.properties) && \
     SERVER_PORT=${SERVER_PORT:-8080} && \
     echo "Server port: $SERVER_PORT" && \
-    echo "Exposing port $SERVER_PORT" && \
-    EXPOSE $SERVER_PORT
+    echo "Exposing port $SERVER_PORT"
+    
+EXPOSE $SERVER_PORT
 
 CMD java -jar /home/app.jar --spring.config.location=file:/home/application.properties
